@@ -21,8 +21,10 @@ public class AnomalyController : MonoBehaviour
 
     public bool DevelopmentCreateAnomaly = false;
 
-    [SerializeField] AudioClip anomolyFoundSound;
-
+    [Space(10)]
+    [SerializeField] AudioClip _anomalyFoundSFX;
+    [SerializeField] private AudioClip _clickSFX;
+    [SerializeField] private AudioClip _clickFailSFX;
 
     private void Update()
     {
@@ -75,8 +77,13 @@ public class AnomalyController : MonoBehaviour
     bool usingItem = false;
     public void UseItem(int camera, GhostType itemUsed)
     {
-        if (usingItem) { return; }
-        if (ItemManager.instance.wrongItem) { return; }
+        if (usingItem || ItemManager.instance.wrongItem)
+        {
+            AudioPool.Instance.PlaySound(_clickFailSFX, 0.75f);
+            return;
+        }
+
+        AudioPool.Instance.PlaySound(_clickSFX, 0.75f, true);
 
         if (waitForItem != null)
         {
@@ -107,7 +114,7 @@ public class AnomalyController : MonoBehaviour
 
             if (success)//if you did find an item to use
             {
-                AudioPool.Instance.PlaySound(anomolyFoundSound);
+                AudioPool.Instance.PlaySound(_anomalyFoundSFX);
                 ItemManager.instance.SetText("Exorcism Successful");
             }
             else

@@ -27,6 +27,9 @@ public class CameraMove : MonoBehaviour
     private bool _bookBuffer = false;
 
     [Space(10)]
+    [SerializeField] private float _turnSFXVolume = 0.75f;
+    [SerializeField] private AudioClip _turnRightSFX;
+    [SerializeField] private AudioClip _turnLeftSFX;
     [SerializeField] private AudioClip _bookGrabSFX;
     [SerializeField] private AudioClip _bookPutAwaySFX;
 
@@ -117,6 +120,7 @@ public class CameraMove : MonoBehaviour
         // Debug.Log("turning: " + targetRot);
 
         ToggleUI(turned, !turned, !turned);
+        AudioPool.Instance.PlaySound(turned ? _turnRightSFX : _turnLeftSFX, _turnSFXVolume, true);
 
         if (_turnCoroutine != null)
             StopCoroutine(_turnCoroutine);

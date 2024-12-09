@@ -31,7 +31,7 @@ public class AudioPool : MonoBehaviour
         // Pitch
         if (randomizePitch)
         {
-            _audioSources[_currentIndex].pitch = Random.Range(0.9f, 1.1f);
+            _audioSources[_currentIndex].pitch = Random.Range(0.85f, 1.15f);
         }
         else
         {

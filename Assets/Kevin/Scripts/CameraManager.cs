@@ -55,7 +55,7 @@ public class CameraManager : MonoBehaviour
             return;
         }
 
-        AudioPool.Instance.PlaySound(camSwitchAudio);
+        AudioPool.Instance.PlaySound(camSwitchAudio, 0.9f, true);
 
         // If int index is too little or too big, do nothing
         if (index < 0 || index >= securityCameras.Count) return;
