@@ -59,6 +59,9 @@ public class GameManager : MonoBehaviour
         mainMenu.SetActive(false);
         settingsMenu.SetActive(true);
         ScreenInteractable.instance.Disable();
+
+        AudioManager.Instance.PauseAmbiance();
+        CameraMove.Instance.CanHover = false;
     }
 
     public void Resume()
@@ -67,6 +70,9 @@ public class GameManager : MonoBehaviour
         gameIsPaused = false;
         menuCanvas.SetActive(false);
         ScreenInteractable.instance.TempDisable();
+
+        AudioManager.Instance.ResumeAmbiance();
+        CameraMove.Instance.CanHover = true;
     }
 
     // When pressed it will restart the entire game and close the main menu
@@ -81,5 +87,8 @@ public class GameManager : MonoBehaviour
 
         ScreenInteractable.instance.TempDisable();
         // Put code here to reset ghosts, anomalies, score, etc
+
+        AudioManager.Instance.SetAmbiance(true, false);
+        CameraMove.Instance.CanHover = true;
     }
 }

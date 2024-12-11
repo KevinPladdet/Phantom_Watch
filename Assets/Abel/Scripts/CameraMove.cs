@@ -38,10 +38,10 @@ public class CameraMove : MonoBehaviour
     [SerializeField] private GameObject _turnIndicatorRight;
     [SerializeField] private GameObject _turnIndicatorLeft;
 
+    public bool CanHover = false;
 
     private bool _isTurned = false;
     private bool _isTurning = false;
-    public bool _canHover = true;
     private Coroutine _turnCoroutine;
 
     void Start()
@@ -69,7 +69,7 @@ public class CameraMove : MonoBehaviour
         if (!IsActive)
             return;
 
-        if (_canHover)
+        if (CanHover)
         {
             if (mouseX > Screen.width - _turnThreshold)
                 Turn(true);

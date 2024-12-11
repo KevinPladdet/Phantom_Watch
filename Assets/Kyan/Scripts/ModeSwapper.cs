@@ -73,7 +73,9 @@ public class ModeSwapper : MonoBehaviour
         fpsSystem.SetActive(false);
         CameraMove.Instance.ToggleUI(false,false,false);
         winScript.ToggleInCam(true);
-        CameraMove.Instance._canHover = false;
+        CameraMove.Instance.CanHover = false;
+
+        AudioManager.Instance.SetAmbiance(true, true);
     }
 
     public void ExitComputer()
@@ -92,11 +94,12 @@ public class ModeSwapper : MonoBehaviour
 
         CameraMove.Instance.IsActive = true;
         CameraMove.Instance.ToggleUI(false, true, true);
+        AudioManager.Instance.SetAmbiance(true, false);
     }
 
     void ExitedComputer()
     {
-        CameraMove.Instance._canHover = true;
+        CameraMove.Instance.CanHover = true;
     }
 
     private IEnumerator LerpTransform(Transform targetTrans, Action actionCallback)
