@@ -28,6 +28,6 @@ public class Book : MonoBehaviour, IInteractable
             _objPage4.SetActive(false);
             _currentPage = 0;
         }
-        AudioPool.Instance.PlaySound(_pageFlipSFX, 0.5f, true);
+        AudioManager.Instance.PlaySound(_pageFlipSFX, 0.5f, true);
     }
 }

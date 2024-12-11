@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioPool : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    public static AudioPool Instance;
+    public static AudioManager Instance;
 
     private AudioSource[] _audioSources;
     private int _currentIndex;

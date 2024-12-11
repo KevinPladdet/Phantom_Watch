@@ -79,11 +79,11 @@ public class AnomalyController : MonoBehaviour
     {
         if (usingItem || ItemManager.instance.wrongItem)
         {
-            AudioPool.Instance.PlaySound(_clickFailSFX, 0.75f);
+            AudioManager.Instance.PlaySound(_clickFailSFX, 0.75f);
             return;
         }
 
-        AudioPool.Instance.PlaySound(_clickSFX, 0.75f, true);
+        AudioManager.Instance.PlaySound(_clickSFX, 0.75f, true);
 
         if (waitForItem != null)
         {
@@ -114,7 +114,7 @@ public class AnomalyController : MonoBehaviour
 
             if (success)//if you did find an item to use
             {
-                AudioPool.Instance.PlaySound(_anomalyFoundSFX);
+                AudioManager.Instance.PlaySound(_anomalyFoundSFX);
                 ItemManager.instance.SetText("Exorcism Successful");
             }
             else

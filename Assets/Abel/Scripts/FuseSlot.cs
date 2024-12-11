@@ -46,7 +46,7 @@ public class FuseSlot : MonoBehaviour, IInteractable
             ToggleFuseVisibility(false);
             IsBroken = false;
 
-            AudioPool.Instance.PlaySound(_removeSFX, 1, true, transform.position);
+            AudioManager.Instance.PlaySound(_removeSFX, 1, true, transform.position);
         }
         else if (!IsFilled)
         {
@@ -88,7 +88,7 @@ public class FuseSlot : MonoBehaviour, IInteractable
 
         GameStatsManager.instance.RepairBreaker();
 
-        AudioPool.Instance.PlaySound(_addSFX, 1, true, transform.position);
+        AudioManager.Instance.PlaySound(_addSFX, 1, true, transform.position);
 
         if (CameraPlaneManager.instance != null)
             CameraPlaneManager.instance.EnableCam(_index);

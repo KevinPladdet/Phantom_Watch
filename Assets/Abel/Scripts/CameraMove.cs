@@ -120,7 +120,7 @@ public class CameraMove : MonoBehaviour
         // Debug.Log("turning: " + targetRot);
 
         ToggleUI(turned, !turned, !turned);
-        AudioPool.Instance.PlaySound(turned ? _turnRightSFX : _turnLeftSFX, _turnSFXVolume, true);
+        AudioManager.Instance.PlaySound(turned ? _turnRightSFX : _turnLeftSFX, _turnSFXVolume, true);
 
         if (_turnCoroutine != null)
             StopCoroutine(_turnCoroutine);
@@ -160,13 +160,13 @@ public class CameraMove : MonoBehaviour
         if (!_bookActive)
         {
             _bookAnimator.SetTrigger("Enter");
-            AudioPool.Instance.PlaySound(_bookGrabSFX, 1, true);
+            AudioManager.Instance.PlaySound(_bookGrabSFX, 1, true);
             ToggleUI(false, false, true);
         }
         if (_bookActive)
         {
             _bookAnimator.SetTrigger("Exit");
-            AudioPool.Instance.PlaySound(_bookPutAwaySFX, 0.75f, true);
+            AudioManager.Instance.PlaySound(_bookPutAwaySFX, 0.75f, true);
             ToggleUI(false, true, true);
         }
 

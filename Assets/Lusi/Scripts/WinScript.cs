@@ -36,7 +36,7 @@ public class WinScript : MonoBehaviour
 
     public void PlaySound()
     {
-        AudioPool.Instance.PlaySound(bellSound);
+        AudioManager.Instance.PlaySound(bellSound);
     }
 
     void Start()
@@ -90,7 +90,7 @@ public class WinScript : MonoBehaviour
 
             if(bellSound != null)
             {
-                AudioPool.Instance.PlaySound(bellSound);
+                AudioManager.Instance.PlaySound(bellSound);
             }
 
             // Handle hour progression from 12 to 1
