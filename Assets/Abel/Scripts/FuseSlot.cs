@@ -31,6 +31,8 @@ public class FuseSlot : MonoBehaviour, IInteractable
         _matLightRed = _lightRed.material;
         _lightRed.material = _matLightOff; // turn off red light since all fuses start as working.
         _matLightGreen = _lightGreen.material;
+
+        IsFilled = true;
     }
 
     private void Update()
