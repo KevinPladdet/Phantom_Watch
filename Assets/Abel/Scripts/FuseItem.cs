@@ -21,7 +21,7 @@ public class FuseItem : MonoBehaviour, IInteractable
             if (boolObj == null || boolObj.activeInHierarchy)
                 return;
 
-            AudioManager.Instance.PlaySound(_grabSFX, 0.75f, false, transform.position);
+            AudioManager.Instance.PlaySound(_grabSFX, 0.5f, false, transform.position);
 
             boolObj.SetActive(true);
             gameObject.SetActive(false);

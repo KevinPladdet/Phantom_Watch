@@ -185,5 +185,14 @@ public class CameraMove : MonoBehaviour
         _turnIndicatorLeft.SetActive(leftVisible);
         _turnIndicatorRight.SetActive(rightVisible);
         _turnIndicatorDown.SetActive(downVisible);
+
+        // Completely turn off the Canvas when all UI elements are disabled (less code required for stuff like the Fuse indicator)
+        if (!leftVisible && !rightVisible && !downVisible)
+        {
+            _turnIndicatorDown.transform.parent.gameObject.SetActive(false);
+        } else
+        {
+            _turnIndicatorDown.transform.parent.gameObject.SetActive(true);
+        }
     }
 }
