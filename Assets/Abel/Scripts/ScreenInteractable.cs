@@ -6,6 +6,8 @@ public class ScreenInteractable : MonoBehaviour, IInteractable
 {
     public static ScreenInteractable instance;
 
+    [SerializeField] private GameObject ghoul;
+
     private void Awake()
     {
         if(instance == null) { instance = this; } else
@@ -41,15 +43,19 @@ public class ScreenInteractable : MonoBehaviour, IInteractable
             interacted = true;
 
             ModeSwapper.instance.EnterComputer();
-
             StartCoroutine(ToggleInteractable());
         }
     }
 
     IEnumerator ToggleInteractable()
     {
-        yield return new WaitForSeconds(2);
-
+        yield return new WaitForSeconds(0.3f);
+        // Disable ghoul when entering computer
+        if (ghoul.activeInHierarchy)
+        {
+            ghoul.SetActive(false);
+        }
+        yield return new WaitForSeconds(1.7f);
         interacted = false;
     }
 }

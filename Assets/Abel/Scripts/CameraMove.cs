@@ -32,11 +32,21 @@ public class CameraMove : MonoBehaviour
     [SerializeField] private AudioClip _turnLeftSFX;
     [SerializeField] private AudioClip _bookGrabSFX;
     [SerializeField] private AudioClip _bookPutAwaySFX;
+    [SerializeField] private AudioClip jumpscareSFX;
 
     [Space(10)]
     [SerializeField] private GameObject _turnIndicatorDown;
     [SerializeField] private GameObject _turnIndicatorRight;
     [SerializeField] private GameObject _turnIndicatorLeft;
+
+    [Space(10)]
+    [SerializeField] private GameObject ghoul;
+    [SerializeField] private GameObject ghoul2;
+    [SerializeField] private int turnCount;
+    [SerializeField] private bool ghoulAppeared;
+    [SerializeField] private int extraTime;
+    private bool jumpscareOnlyOnce = false;
+    
 
     public bool CanHover = false;
 
@@ -72,12 +82,17 @@ public class CameraMove : MonoBehaviour
         if (CanHover)
         {
             if (mouseX > Screen.width - _turnThreshold)
+            {
                 Turn(true);
+            }
             else if (mouseX < _turnThreshold)
+            {
                 Turn(false);
+            } 
 
             if (mouseY < _turnThreshold && !_bookBuffer)
             {
+                Debug.Log("toggle book");
                 ToggleBook();
                 _bookBuffer = true;
             }
@@ -120,6 +135,23 @@ public class CameraMove : MonoBehaviour
         // Debug.Log("turning: " + targetRot);
 
         ToggleUI(turned, !turned, !turned);
+        turnCount++;
+        if (ghoulAppeared)
+        {
+            extraTime++;
+            if (extraTime >= 2)
+            ghoul.SetActive(false);
+        }
+        if (turnCount >= 10 && !ghoulAppeared)
+        {
+            int chanceToActivate = Random.Range(1, 11);
+            if (chanceToActivate == 10)
+            {
+                Debug.Log("Activate Ghoul");
+                ghoul.SetActive(true);
+                ghoulAppeared = true;
+            }
+        }
         AudioManager.Instance.PlaySound(turned ? _turnRightSFX : _turnLeftSFX, _turnSFXVolume, true);
 
         if (_turnCoroutine != null)
@@ -165,6 +197,12 @@ public class CameraMove : MonoBehaviour
         }
         if (_bookActive)
         {
+            if (ghoulAppeared && !jumpscareOnlyOnce)
+            {
+                ghoul.SetActive(false);
+                ghoul2.SetActive(true);
+                StartCoroutine(GhoulJumpscare());
+            }
             _bookAnimator.SetTrigger("Exit");
             AudioManager.Instance.PlaySound(_bookPutAwaySFX, 0.75f, true);
             ToggleUI(false, true, true);
@@ -194,5 +232,14 @@ public class CameraMove : MonoBehaviour
         {
             _turnIndicatorDown.transform.parent.gameObject.SetActive(true);
         }
+    }
+
+    IEnumerator GhoulJumpscare()
+    {
+        yield return new WaitForSeconds(0.6f);
+        AudioManager.Instance.PlaySound(jumpscareSFX, 1, true);
+        yield return new WaitForSeconds(0.6f);
+        jumpscareOnlyOnce = true;
+        ghoul2.SetActive(false);
     }
 }
