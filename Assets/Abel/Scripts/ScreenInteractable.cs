@@ -7,6 +7,7 @@ public class ScreenInteractable : MonoBehaviour, IInteractable
     public static ScreenInteractable instance;
 
     [SerializeField] private GameObject ghoul;
+    [SerializeField] private GameObject ghoul2;
 
     private void Awake()
     {
@@ -54,6 +55,10 @@ public class ScreenInteractable : MonoBehaviour, IInteractable
         if (ghoul.activeInHierarchy)
         {
             ghoul.SetActive(false);
+        }
+        if (ghoul2.activeInHierarchy)
+        {
+            ghoul2.SetActive(false);
         }
         yield return new WaitForSeconds(1.7f);
         interacted = false;

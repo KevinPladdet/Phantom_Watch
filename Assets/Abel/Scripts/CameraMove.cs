@@ -45,7 +45,7 @@ public class CameraMove : MonoBehaviour
     [SerializeField] private int turnCount;
     [SerializeField] private bool ghoulAppeared;
     [SerializeField] private int extraTime;
-    private bool jumpscareOnlyOnce = false;
+    private int jumpscareOnlyOnce;
     
 
     public bool CanHover = false;
@@ -141,6 +141,7 @@ public class CameraMove : MonoBehaviour
             extraTime++;
             if (extraTime >= 2)
             ghoul.SetActive(false);
+            ghoul2.SetActive(false);
         }
         if (turnCount >= 10 && !ghoulAppeared)
         {
@@ -197,11 +198,16 @@ public class CameraMove : MonoBehaviour
         }
         if (_bookActive)
         {
-            if (ghoulAppeared && !jumpscareOnlyOnce)
+            if (jumpscareOnlyOnce == 1)
+            {
+                ghoul2.SetActive(false);
+                jumpscareOnlyOnce = 2;
+            }
+            if (ghoulAppeared && jumpscareOnlyOnce == 0)
             {
                 ghoul.SetActive(false);
                 ghoul2.SetActive(true);
-                StartCoroutine(GhoulJumpscare());
+                jumpscareOnlyOnce = 1;
             }
             _bookAnimator.SetTrigger("Exit");
             AudioManager.Instance.PlaySound(_bookPutAwaySFX, 0.75f, true);
@@ -232,14 +238,5 @@ public class CameraMove : MonoBehaviour
         {
             _turnIndicatorDown.transform.parent.gameObject.SetActive(true);
         }
-    }
-
-    IEnumerator GhoulJumpscare()
-    {
-        yield return new WaitForSeconds(0.6f);
-        AudioManager.Instance.PlaySound(jumpscareSFX, 1, true);
-        yield return new WaitForSeconds(0.6f);
-        jumpscareOnlyOnce = true;
-        ghoul2.SetActive(false);
     }
 }
